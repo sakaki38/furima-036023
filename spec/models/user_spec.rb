@@ -43,6 +43,7 @@ RSpec.describe User, type: :model do
       end
       it "passwordは英数字混合でないと登録できない" do
         @user.password = "000000"
+        @user.password_confirmation = "000000"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
@@ -103,11 +104,13 @@ RSpec.describe User, type: :model do
       end
       it "passwordは英数のみでは登録できない" do
         @user.password = "aaaaaa"
+        @user.password_confirmation = "aaaaaa"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it "passwordは全角では登録できない" do
         @user.password = "zyzyzy"
+        @user.password_confirmation = "zyzyzy"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
