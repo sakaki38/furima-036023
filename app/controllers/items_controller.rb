@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
   #before_action :prevent_url, only: [:edit, :update]
-  before_action :set_furima, only: [:edit, :show, :updat]
+  before_action :set_furima, only: [:edit, :show, :update, :destroy]
   #before_action :move_to_index, only: [:edit]
 
   def index
@@ -45,9 +45,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
     @item.destroy
-    redirect_to root_path
   end
 
   private
