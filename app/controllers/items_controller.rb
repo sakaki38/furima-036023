@@ -1,12 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
-  #before_action :prevent_url, only: [:edit, :update]
+  before_action :authenticate_user!, except: [:index]
   before_action :set_furima, only: [:edit, :show, :update, :destroy]
-  #before_action :move_to_index, only: [:edit]
 
   def index
     @items = Item.all.order('created_at DESC')
-    # @items = Item.includes(:user)
   end
 
   def new
@@ -22,9 +19,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show 
-  end
-
   def edit
     if @item.user_id != current_user.id
       redirect_to root_path
@@ -34,6 +28,9 @@ class ItemsController < ApplicationController
       @item.user_id == current_user.id
       render :edit
     end
+  end
+
+  def show 
   end
 
   def update
@@ -60,15 +57,5 @@ class ItemsController < ApplicationController
 
   def set_furima
      @item = Item.find(params[:id])
-  end
-
-  #def move_to_index
-    #redirect_to new_user_session_path unless user_signed_in?
-  #end
-
-  def prevent_url
-    # if @item.user_id != current_user.id || @item.buy != nil
-    # redirect_to new_user_session_path
-    # end
   end
 end

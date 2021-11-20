@@ -37,7 +37,7 @@
 - belongs_to :user
 - has_one :buy
 
-## buyers テーブル
+## orders テーブル
 
 | column               | type           | option                         |
 | ---------------------| -------------- | ------------------------------ |
@@ -64,4 +64,4 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :buyer
+- has_one :order
