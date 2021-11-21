@@ -9,6 +9,10 @@ RSpec.describe BuyOrder, type: :model do
     it 'すべての値が正しく入力されていれば保存できること' do
       expect(@buy_order).to be_valid
     end
+    it 'building_nameが空でも保存できること' do
+      @buy_order.building_name = ''
+      expect(@buy_order).to be_valid
+    end
   end
 
   context '内容に問題がある場合' do
@@ -51,6 +55,41 @@ RSpec.describe BuyOrder, type: :model do
       @buy_order.token = nil
       @buy_order.valid?
       expect(@buy_order.errors.full_messages).to include("Token can't be blank")
+    end
+    it 'phone_numberが空では保存ができないこと' do
+      @buy_order.phone_number = ''
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Phone number can't be blank")
+    end
+    it '電話番号が10桁以上でなければ保存できないこと' do
+      @buy_order.phone_number = '09012345'
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
+    end
+    it '電話番号が12桁以下では保存できないこと' do
+      @buy_order.phone_number = '09012345'
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
+    end
+    it '電話番号が半角数値のみでなければ保存できないこと' do
+      @buy_order.phone_number = 'aaa000'
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
+    end
+    it 'ユーザーが紐付いていなければ保存できないこと' do
+      @buy_order.user_id = ''
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include()
+    end
+    it '商品が紐付いていなければ保存できないこと' do
+      @buy_order.item_id = ''
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include()
+    end
+    it '都道府県が空では保存できないこと' do
+      @buy_order.area_id = ''
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Area can't be blank")
     end
   end
 end
