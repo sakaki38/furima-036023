@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :move_to_signed_in, expect: [:index]
   def index
     @item = Item.find(params[:item_id])
     @buy_order = BuyOrder.new
+    if current_user == @item.user || @item.buy != nil
+       redirect_to root_path
+    end
   end
 
   def new
@@ -35,5 +39,11 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_to_signed_in
+    unless user_signed_in?
+      redirect_to '/users/sign_in'
+    end
   end
 end

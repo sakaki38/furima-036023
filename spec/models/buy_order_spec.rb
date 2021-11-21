@@ -48,9 +48,9 @@ RSpec.describe BuyOrder, type: :model do
       expect(@buy_order.errors.full_messages).to include("Area can't be blank")
     end
     it 'tokenが空では登録できないこと' do
-      @order.token = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include("Token can't be blank")
+      @buy_order.token = nil
+      @buy_order.valid?
+      expect(@buy_order.errors.full_messages).to include("Token can't be blank")
     end
   end
 end
