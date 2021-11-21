@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show 
+  def show
   end
 
   def update
@@ -42,9 +42,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id
     @item.destroy
   end
 
@@ -56,6 +54,6 @@ class ItemsController < ApplicationController
   end
 
   def set_furima
-     @item = Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 end

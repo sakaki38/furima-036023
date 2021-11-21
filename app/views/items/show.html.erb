@@ -37,12 +37,6 @@
     <%= link_to "購入画面に進む", item_orders_path(@item.id), class:"item-red-btn"%>
     <% end %>
 
-    <% if @item.buy.present? %>
-      <div class='sold-out'>
-        <span>Sold Out!!</span>
-      </div>
-    <% end %>
-
     <div class="item-explain-box">
       <span><%= @item.explanation %></span>
     </div>
