@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe BuyOrder, type: :model do
   before do
     @buy_order = FactoryBot.build(:buy_order)
+  
   end
 
   context '内容に問題ない場合' do
@@ -66,8 +67,8 @@ RSpec.describe BuyOrder, type: :model do
       @buy_order.valid?
       expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
     end
-    it '電話番号が12桁以下では保存できないこと' do
-      @buy_order.phone_number = '09012345'
+    it '電話番号が12桁以上では保存できないこと' do
+      @buy_order.phone_number = '09012345678901'
       @buy_order.valid?
       expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
     end
@@ -77,14 +78,14 @@ RSpec.describe BuyOrder, type: :model do
       expect(@buy_order.errors.full_messages).to include("Phone number is invalid. Not Include hyphen(-)")
     end
     it 'ユーザーが紐付いていなければ保存できないこと' do
-      @buy_order.user_id = ''
+      @buy_order.user_id = nil
       @buy_order.valid?
-      expect(@buy_order.errors.full_messages).to include()
+      expect(@buy_order.errors.full_messages).to include("User can't be blank")
     end
     it '商品が紐付いていなければ保存できないこと' do
-      @buy_order.item_id = ''
+      @buy_order.item_id = nil
       @buy_order.valid?
-      expect(@buy_order.errors.full_messages).to include()
+      expect(@buy_order.errors.full_messages).to include("Item can't be blank")
     end
     it '都道府県が空では保存できないこと' do
       @buy_order.area_id = ''

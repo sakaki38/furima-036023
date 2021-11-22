@@ -8,6 +8,9 @@ class BuyOrder
   validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Not Include hyphen(-)' }
   validates :post_code, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
   validates :token, presence: true
+  validates :user_id, presence: true
+  validates :item_id, presence: true
+
   
  
 

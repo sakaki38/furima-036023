@@ -6,6 +6,8 @@ FactoryBot.define do
     address { '1-1' }
     phone_number { "0#{rand(0..9)}0#{rand(1_000_000..99_999_999)}" }
     token { 'tok_abcdefghijk00000000000000000' }
-    
+    building_name {'サンライズ'}
+    user_id {1}
+    item_id {1}
   end
 end
