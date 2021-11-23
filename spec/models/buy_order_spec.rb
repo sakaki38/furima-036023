@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BuyOrder, type: :model do
   before do
-    @buy_order = FactoryBot.build(:buy_order)
-  
+    item = FactoryBot.create(:item)
+    user = FactoryBot.create(:user)
+    @buy_order = FactoryBot.build(:buy_order, user_id: user.id, item_id: item.id)
+    sleep 0.1
   end
 
   context '内容に問題ない場合' do
