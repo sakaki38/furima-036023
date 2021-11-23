@@ -23,11 +23,10 @@ class ItemsController < ApplicationController
   def edit
     if @item.user_id != current_user.id
       redirect_to root_path
-    elsif @item.user_id != current_user.id || !@item.buy.nil?
+    elsif 
       redirect_to root_path
     else
-      @item.user_id == current_user.id
-      render :edit
+      @item.user_id
     end
   end
 

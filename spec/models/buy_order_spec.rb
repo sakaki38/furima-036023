@@ -44,11 +44,6 @@ RSpec.describe BuyOrder, type: :model do
       @buy_order.valid?
       expect(@buy_order.errors.full_messages).to include('Phone number is invalid. Not Include hyphen(-)')
     end
-    it 'phone_numberが空では保存ができないこと' do
-      @buy_order.phone_number = ''
-      @buy_order.valid?
-      expect(@buy_order.errors.full_messages).to include("Phone number can't be blank")
-    end
     it 'area_idを選択していないと保存ができないこと' do
       @buy_order.area_id = 1
       @buy_order.valid?
